@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Mr.Z</title>
+  
+  <subtitle>Life is meaning to fight!</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://zhfk.github.io/"/>
+  <updated>2019-06-05T08:06:02.309Z</updated>
+  <id>https://zhfk.github.io/</id>
+  
+  <author>
+    <name>zhfk</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://zhfk.github.io/2019/06/04/hello-world/"/>
+    <id>https://zhfk.github.io/2019/06/04/hello-world/</id>
+    <published>2019-06-04T05:45:54.110Z</published>
+    <updated>2019-06-05T08:06:02.309Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="随写" scheme="https://zhfk.github.io/categories/%E9%9A%8F%E5%86%99/"/>
+    
+    
+      <category term="随写" scheme="https://zhfk.github.io/tags/%E9%9A%8F%E5%86%99/"/>
+    
+  </entry>
+  
+</feed>
