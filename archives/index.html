@@ -3,7 +3,7 @@
 
 
 <head><meta name="generator" content="Hexo 3.8.0">
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <meta name="keywords" content="归档, fight,passion">
     <meta name="description" content="归档 | Mr.Z">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,12 +28,12 @@
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
 <body>
 
-<header class="navbar-fixed">
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="navbar-fixed">
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
@@ -398,17 +398,17 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/0.jpg" class="responsive-img" alt>
+                                <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="推荐系统基础知识">
                                 
-                                <span class="card-title"></span>
+                                <span class="card-title">推荐系统基础知识</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    计算物品距离的几种方法欧几里得距离(Euclidean Distance)最常见的距离度量方式，衡量多维空间中两点之间的绝对距离，要求维度的统一。
-dist(X,Y)=\sqrt{\sum_{i=1}^n(x_i-y_i)^2}
-明可夫斯基
+                                    推荐系统是现在消费互联网为了吸引点击率常用的手段，本文就推荐系统常用的知识做一些总结
+计算物品距离的几种方法欧几里得距离(Euclidean Distance)最常见的距离度量方式，衡量多维空间中两点之间的绝对距离，要求维度的统一。
+$$d
                                 
                             </div>
                             <div class="publish-info">
@@ -417,13 +417,25 @@ dist(X,Y)=\sqrt{\sum_{i=1}^n(x_i-y_i)^2}
                                 </span>
                                 <span class="publish-author">
                                     
-                                    <i class="fa fa-user fa-fw"></i>
-                                    zhfk
+                                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                    
+                                    <a href="/categories/总结/" class="post-category" target="_blank">
+                                    总结
+                                    </a>
+                                    
                                     
                                 </span>
                             </div>
                         </div>
 
+                        
+                        <div class="card-action article-tags">
+                            
+                            <a href="/tags/推荐系统/"><span class="chip bg-color">推荐系统</span></a>
+                            
+                            <a href="/tags/互联网/"><span class="chip bg-color">互联网</span></a>
+                            
+                        </div>
                         
                     </div>
                 </div>
@@ -457,7 +469,8 @@ dist(X,Y)=\sqrt{\sum_{i=1}^n(x_i-y_i)^2}
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    ReentrantLock继承体系
+                                    针对Java中高并发场景下最常用的数据结构ReentantLock解析
+ReentrantLock继承体系
 非公平锁加锁过程
 
                                 
@@ -584,6 +597,8 @@ dist(X,Y)=\sqrt{\sum_{i=1}^n(x_i-y_i)^2}
                 </span>
                 
             
+            <!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+            
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
 
@@ -649,7 +664,7 @@ $(function () {
     <script src="/libs/others/clicklove.js"></script>
 
 
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 </body>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhfk.github.io/"/>
-  <updated>2019-06-15T16:00:34.325Z</updated>
+  <updated>2019-06-15T16:38:41.618Z</updated>
   <id>https://zhfk.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>推荐系统基础知识</title>
     <link href="https://zhfk.github.io/2019/06/16/tui-jian-xi-tong-ji-chu-zhi-shi/"/>
     <id>https://zhfk.github.io/2019/06/16/tui-jian-xi-tong-ji-chu-zhi-shi/</id>
     <published>2019-06-15T16:00:34.325Z</published>
-    <updated>2019-06-15T16:00:34.325Z</updated>
+    <updated>2019-06-15T16:38:41.618Z</updated>
     
     <summary type="html">
     
@@ -29,12 +29,19 @@
       
         
         
-          &lt;h2 id=&quot;计算物品距离的几种方法&quot;&gt;&lt;a href=&quot;#计算物品距离的几种方法&quot; class=&quot;headerlink&quot; title=&quot;计算物品距离的几种方法&quot;&gt;&lt;/a&gt;计算物品距离的几种方法&lt;/h2&gt;&lt;h3
+          &lt;p&gt;推荐系统是现在消费互联网为了吸引点击率常用的手段，本文就推荐系统常用的知识做一些总结&lt;/p&gt;
+&lt;h2 id=&quot;计算物品距离的几种方法&quot;&gt;&lt;a href=&quot;#计算物品距离的几种方法&quot; class=&quot;headerlink&quot;
         
       
     
     </summary>
     
+      <category term="总结" scheme="https://zhfk.github.io/categories/%E6%80%BB%E7%BB%93/"/>
+    
+    
+      <category term="推荐系统" scheme="https://zhfk.github.io/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/"/>
+    
+      <category term="互联网" scheme="https://zhfk.github.io/tags/%E4%BA%92%E8%81%94%E7%BD%91/"/>
     
   </entry>
   
@@ -43,7 +50,7 @@
     <link href="https://zhfk.github.io/2019/06/15/reentrantlock-jie-xi/"/>
     <id>https://zhfk.github.io/2019/06/15/reentrantlock-jie-xi/</id>
     <published>2019-06-15T12:50:25.172Z</published>
-    <updated>2019-06-15T15:54:02.348Z</updated>
+    <updated>2019-06-15T16:09:13.814Z</updated>
     
     <summary type="html">
     
@@ -51,7 +58,8 @@
       
         
         
-          &lt;h2 id=&quot;ReentrantLock继承体系&quot;&gt;&lt;a href=&quot;#ReentrantLock继承体系&quot; class=&quot;headerlink&quot; title=&quot;ReentrantLock继承体系&quot;&gt;&lt;/a&gt;ReentrantLock继承体系&lt;/h2&gt;&lt;p&gt;&lt;img
+          &lt;p&gt;针对Java中高并发场景下最常用的数据结构ReentantLock解析&lt;/p&gt;
+&lt;h2 id=&quot;ReentrantLock继承体系&quot;&gt;&lt;a href=&quot;#ReentrantLock继承体系&quot; class=&quot;headerlink&quot;
         
       
     
