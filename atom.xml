@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhfk.github.io/"/>
-  <updated>2019-06-15T16:38:41.618Z</updated>
+  <updated>2019-06-17T08:39:17.886Z</updated>
   <id>https://zhfk.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>快手万亿级别Kafka集群应用实践与技术演进之路</title>
+    <link href="https://zhfk.github.io/2019/06/17/kuai-shou-wan-yi-ji-bie-kafka-ji-qun-ying-yong-shi-jian-yu-ji-zhu-yan-jin-zhi-lu/"/>
+    <id>https://zhfk.github.io/2019/06/17/kuai-shou-wan-yi-ji-bie-kafka-ji-qun-ying-yong-shi-jian-yu-ji-zhu-yan-jin-zhi-lu/</id>
+    <published>2019-06-17T08:33:01.897Z</published>
+    <updated>2019-06-17T08:39:17.886Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Kafka集群被大量用来对流量高峰期限流、系统解耦合、削弱峰值等业务场景。Kafka提供了高性能的消息写入、持久化、读取的优化。每一种技术都不能解决所有的问题。&lt;/p&gt;
+&lt;p&gt;本文整理自快手高级架构师、大数据架构团队负责人赵健博在 QCon
+        
+      
+    
+    </summary>
+    
+      <category term="总结" scheme="https://zhfk.github.io/categories/%E6%80%BB%E7%BB%93/"/>
+    
+    
+      <category term="kafka" scheme="https://zhfk.github.io/tags/kafka/"/>
+    
+      <category term="中间件" scheme="https://zhfk.github.io/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+  </entry>
   
   <entry>
     <title>推荐系统基础知识</title>
