@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Mr.Z</title>
   
-  <subtitle>Inventing Instead Of Wondering</subtitle>
+  <subtitle>Passion Is Sweet</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhfk.github.io/"/>
@@ -110,7 +110,7 @@
     <link href="https://zhfk.github.io/2019/06/04/hello-world/"/>
     <id>https://zhfk.github.io/2019/06/04/hello-world/</id>
     <published>2019-06-04T05:45:54.110Z</published>
-    <updated>2019-06-15T15:47:04.335Z</updated>
+    <updated>2019-06-17T12:54:34.548Z</updated>
     
     <summary type="html">
     
@@ -118,7 +118,8 @@
       
         
         
-          &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a
+          &lt;p&gt;开篇想感谢一下 blinkfox，我copy了其 hexo-theme-matery，界面漂亮美观！&lt;/p&gt;
+&lt;h2 id=&quot;链接&quot;&gt;&lt;a href=&quot;#链接&quot; class=&quot;headerlink&quot; title=&quot;链接&quot;&gt;&lt;/a&gt;链接&lt;/h2&gt;&lt;h3
         
       
     
