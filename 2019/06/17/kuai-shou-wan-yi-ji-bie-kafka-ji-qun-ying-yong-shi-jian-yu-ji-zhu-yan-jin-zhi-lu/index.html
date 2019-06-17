@@ -447,6 +447,7 @@ KReplcator 集群包含三个模块：
 <p>问题：<br>    1、comsumer的lag读会对 page cache 产生污染<br>    2、follower 会造成 page cache 污染，follower写入的数据是一次性的，后续不会在被读取，所以缓存没有必要</p>
 <p>解决：同时写两个对象<br>    - block cache: block cache 中的数据全都是 producer 产生的<br>    - flush queue: flush queue 中的数据会由其他线程异步地写入到磁盘中<br>    对于 consumer 而言，在 broker 接到消费请求后，首先会从 block cache 中检索数据，如果命中，则直接返回。否则，则从磁盘读取数据。这样的读取模式保障了 consumer 的 cache miss 读并不会填充 block cache，从而避免了产生污染，即使有大 lag 的 consumer 读磁盘，也仍然保证 block cache 的稳定。</p>
 <h2 id="智能限速"><a href="#智能限速" class="headerlink" title="智能限速"></a>智能限速</h2><p>问题： consumer lag 导致producer写入受阻？<br>解决：<br>    - 思路：当磁盘繁忙，针对lag的consumer进行限速控制<br>    - 添加限速模块，包含lag域值检测、限速策略、信息采集，延迟队列等</p>
+<p><img src="http://www.6aiq.com/article/1558077716919" alt="参考"></p>
 
             </div>
             <hr>
