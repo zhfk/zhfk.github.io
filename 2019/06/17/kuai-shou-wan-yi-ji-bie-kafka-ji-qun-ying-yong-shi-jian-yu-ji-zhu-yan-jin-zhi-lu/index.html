@@ -421,16 +421,16 @@
             <div id="articleContent">
                 <p>Kafka集群被大量用来对流量高峰期限流、系统解耦合、削弱峰值等业务场景。Kafka提供了高性能的消息写入、持久化、读取的优化。每一种技术都不能解决所有的问题。</p>
 <p>本文整理自快手高级架构师、大数据架构团队负责人赵健博在 QCon 全球软件开发大会（北京）2019 上的演讲，他介绍了 Kafka 系统在快手的应用实践、遇到的问题以及相应的技术的演进过程。</p>
-<h1 id="数据规模"><a href="#数据规模" class="headerlink" title="数据规模"></a>数据规模</h1><p>日处理消息级别：万亿<br>峰值：1亿/s</p>
-<h1 id="集群类别"><a href="#集群类别" class="headerlink" title="集群类别"></a>集群类别</h1><h2 id="kafka作为消息中间件"><a href="#kafka作为消息中间件" class="headerlink" title="kafka作为消息中间件"></a>kafka作为消息中间件</h2><pre><code>不同业务之间提供消息通知服务</code></pre><h2 id="LOG集群"><a href="#LOG集群" class="headerlink" title="LOG集群"></a>LOG集群</h2><pre><code>业务程序将Log打给kafka</code></pre><h2 id="离线集群"><a href="#离线集群" class="headerlink" title="离线集群"></a>离线集群</h2><pre><code>- 数据实时dump到hdfs
+<h2 id="数据规模"><a href="#数据规模" class="headerlink" title="数据规模"></a>数据规模</h2><p>日处理消息级别：万亿<br>峰值：1亿/s</p>
+<h2 id="集群类别"><a href="#集群类别" class="headerlink" title="集群类别"></a>集群类别</h2><h3 id="kafka作为消息中间件"><a href="#kafka作为消息中间件" class="headerlink" title="kafka作为消息中间件"></a>kafka作为消息中间件</h3><pre><code>不同业务之间提供消息通知服务</code></pre><h3 id="LOG集群"><a href="#LOG集群" class="headerlink" title="LOG集群"></a>LOG集群</h3><pre><code>业务程序将Log打给kafka</code></pre><h3 id="离线集群"><a href="#离线集群" class="headerlink" title="离线集群"></a>离线集群</h3><pre><code>- 数据实时dump到hdfs
 - 为实时计算提供数据源
-- 为实时训练提供数据源</code></pre><h1 id="解决的问题"><a href="#解决的问题" class="headerlink" title="解决的问题"></a>解决的问题</h1><h2 id="对borker的平滑扩容"><a href="#对borker的平滑扩容" class="headerlink" title="对borker的平滑扩容"></a>对borker的平滑扩容</h2><p>问题：</p>
+- 为实时训练提供数据源</code></pre><h2 id="解决的问题"><a href="#解决的问题" class="headerlink" title="解决的问题"></a>解决的问题</h2><h3 id="对borker的平滑扩容"><a href="#对borker的平滑扩容" class="headerlink" title="对borker的平滑扩容"></a>对borker的平滑扩容</h3><p>问题：</p>
 <pre><code>系统需要新增一个borker时，如何平滑的将现有的topic平滑的迁移到新的broker上，从而实现topic的leader和follower的均匀分布？</code></pre><p>解决：</p>
 <pre><code>1、在新的broker上创建副本用于迁移源topic(或其中一个副本)，
 2、读取的时候从最新的offset开始读
      - 从最新的offset开始读，可避免大量I/O
      - 有些已经消费过的数据后续不会用到，没有必要迁移
-3、保持一段时间，当所有的consumer都消费到开始读取的offset，即可删除源数据，迁移完成。</code></pre><h2 id="Mirror的集群化"><a href="#Mirror的集群化" class="headerlink" title="Mirror的集群化"></a>Mirror的集群化</h2><blockquote>
+3、保持一段时间，当所有的consumer都消费到开始读取的offset，即可删除源数据，迁移完成。</code></pre><h3 id="Mirror的集群化"><a href="#Mirror的集群化" class="headerlink" title="Mirror的集群化"></a>Mirror的集群化</h3><blockquote>
 <p>kafka Mirror是kafka为集群的数据迁移提供的一个解决方案</p>
 </blockquote>
 <p>Kafka Mirror 存在的问题：</p>
@@ -444,14 +444,14 @@
 KReplcator 集群包含三个模块：
     - Controller: 动态管理 topic、worker 的增减
     - worker：数据的传输
-    - zookeeper：协调Controller与worker</code></pre><h2 id="资源隔离"><a href="#资源隔离" class="headerlink" title="资源隔离"></a>资源隔离</h2><p>问题1：</p>
+    - zookeeper：协调Controller与worker</code></pre><h3 id="资源隔离"><a href="#资源隔离" class="headerlink" title="资源隔离"></a>资源隔离</h3><p>问题1：</p>
 <pre><code>同一个业务线的topic分布在不同的broker上，不同业务线的topic分布在broker上，如果consumer出现问题，导致消费产生lag，lag积累会造成磁盘繁忙，影响其他业务线。</code></pre><p>解决：</p>
 <pre><code>物理隔离，把不同的topic放到不同的broker，尽量减少业务线的交叉
 - 创建topic
 - 迁移topic
 - 宕机恢复流程</code></pre><p>问题2：</p>
 <pre><code>kafka PRC 队列缺少隔离，某个topic慢，会导致所有请求hang up</code></pre><p>解决：</p>
-<pre><code>分拆多个PRC队列，队列隔离</code></pre><h2 id="cache改造"><a href="#cache改造" class="headerlink" title="cache改造"></a>cache改造</h2><p>Kafka 之所以有如此高的性能，主要依赖于 page cache，producer 的写操作，broker 会将数据写入到 page cache 中，随后 consumer 发起读操作，如果短时间内 page cache 仍然有效，则 broker 直接从内存返回数据，这样，整体性能吞吐非常高。</p>
+<pre><code>分拆多个PRC队列，队列隔离</code></pre><h3 id="cache改造"><a href="#cache改造" class="headerlink" title="cache改造"></a>cache改造</h3><p>Kafka 之所以有如此高的性能，主要依赖于 page cache，producer 的写操作，broker 会将数据写入到 page cache 中，随后 consumer 发起读操作，如果短时间内 page cache 仍然有效，则 broker 直接从内存返回数据，这样，整体性能吞吐非常高。</p>
 <p>问题：</p>
 <pre><code>1、comsumer的lag读会对 page cache 产生污染
 2、follower 会造成 page cache 污染，follower写入的数据是一次性的，后续不会在被读取，所以缓存没有必要</code></pre><p>解决：同时写两个对象</p>
@@ -460,7 +460,7 @@ KReplcator 集群包含三个模块：
 对于 consumer 而言，在 broker 接到消费请求后，首先会从 block cache 中检索数据，
 如果命中，则直接返回。否则，则从磁盘读取数据。这样的读取模式保障了 consumer 的 
 cache miss 读并不会填充 block cache，从而避免了产生污染，
-即使有大 lag 的 consumer 读磁盘，也仍然保证 block cache 的稳定。</code></pre><h2 id="智能限速"><a href="#智能限速" class="headerlink" title="智能限速"></a>智能限速</h2><p>问题： </p>
+即使有大 lag 的 consumer 读磁盘，也仍然保证 block cache 的稳定。</code></pre><h3 id="智能限速"><a href="#智能限速" class="headerlink" title="智能限速"></a>智能限速</h3><p>问题： </p>
 <pre><code>consumer lag 导致producer写入受阻？</code></pre><p>解决：</p>
 <pre><code>- 思路：当磁盘繁忙，针对lag的consumer进行限速控制
 - 添加限速模块，包含lag域值检测、限速策略、信息采集，延迟队列等</code></pre><p><a href="http://www.6aiq.com/article/1558077716919" target="_blank" rel="noopener">参考：快手万亿级别 Kafka 集群应用实践与技术演进之路</a></p>
