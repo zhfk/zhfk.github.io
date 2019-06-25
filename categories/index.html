@@ -301,18 +301,18 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 </a>
                 
                 
-                <a href="/categories/总结/" title="总结: 2">
+                <a href="/categories/随写/" title="随写: 1">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default " style="background-color: #F5EEF8;">总结
-                        <span class="tag-length">2</span>
+                             chip-default " style="background-color: #F5EEF8;">随写
+                        <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/categories/随写/" title="随写: 1">
+                <a href="/categories/总结/" title="总结: 2">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default " style="background-color: #D5F5E3;">随写
-                        <span class="tag-length">1</span>
+                             chip-default " style="background-color: #D5F5E3;">总结
+                        <span class="tag-length">2</span>
                     </span>
                 </a>
                 
@@ -358,7 +358,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                     color: '#3C4858'
                 }
             },
-            indicator: [{"name":"探索","max":3},{"name":"总结","max":3},{"name":"随写","max":3}],
+            indicator: [{"name":"探索","max":3},{"name":"随写","max":3},{"name":"总结","max":3}],
             nameGap: 5,
             center: ['50%','55%'],
             radius: '66%'
@@ -369,7 +369,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
             itemStyle: {normal: {areaStyle: {type: 'default'}}},
             data : [
                 {
-                    value : [1,2,1],
+                    value : [1,1,2],
                     name : '文章分类数量'
                 }
             ]
@@ -474,7 +474,24 @@ $(function () {
     <script src="/libs/others/clicklove.js"></script>
 
 
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 </body>

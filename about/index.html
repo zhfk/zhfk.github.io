@@ -496,7 +496,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"探索","value":1},{"name":"总结","value":2},{"name":"随写","value":1}],
+                data: [{"name":"探索","value":1},{"name":"随写","value":1},{"name":"总结","value":2}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -520,7 +520,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
         xAxis: [
             {
                 type: 'category',
-                data: ["java","高并发","锁","kafka","中间件","感悟","推荐系统","互联网"]
+                data: ["java","高并发","锁","感悟","kafka","中间件","推荐系统","互联网"]
             }
         ],
         yAxis: [
@@ -750,6 +750,12 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
             
             
             
+            <a href="/tags/感悟/" target="_blank">
+                <span class="chip center-align waves-effect waves-light chip-default">感悟</span>
+            </a>
+            
+            
+            
             <a href="/tags/kafka/" target="_blank">
                 <span class="chip center-align waves-effect waves-light chip-default">kafka</span>
             </a>
@@ -758,12 +764,6 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
             
             <a href="/tags/中间件/" target="_blank">
                 <span class="chip center-align waves-effect waves-light chip-default">中间件</span>
-            </a>
-            
-            
-            
-            <a href="/tags/感悟/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">感悟</span>
             </a>
             
             
@@ -925,7 +925,24 @@ $(function () {
     <script src="/libs/others/clicklove.js"></script>
 
 
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 </body>
