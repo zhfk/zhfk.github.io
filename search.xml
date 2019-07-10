@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>分布式全局ID生成方案</title>
+      <link href="/2019/07/10/fen-bu-shi-quan-ju-id-sheng-cheng-fang-an/"/>
+      <url>/2019/07/10/fen-bu-shi-quan-ju-id-sheng-cheng-fang-an/</url>
+      
+        <content type="html"><![CDATA[<h2 id="分布式全局ID生成方案"><a href="#分布式全局ID生成方案" class="headerlink" title="分布式全局ID生成方案"></a>分布式全局ID生成方案</h2><p>分布式服务架构模式下分库分表的设计，使得多个库或多个表存储相同的业务数据，故而需要生成全局唯一的有序(部分有序)ID来记录数据，保证数据的唯一性。</p><h2 id="UUID-生成方案一"><a href="#UUID-生成方案一" class="headerlink" title="UUID 生成方案一"></a>UUID 生成方案一</h2><p><code>UUID(Universally Unique Identifier),通用唯一识别码。UUID是由一组32位数的16进制数字所构成，所以UUID理论上的总数为 16^32=2^128，约等于 3.4 x 10^38。也就是说若每纳秒产生1兆个UUID，要花100亿年才会将所有UUID用完。</code></p><p><code>生成的UUID是由 8-4-4-4-12 格式的数据组成，其中32个字符和4个连字符&#39; - &#39;，一般我们使用的时候会将连字符删除 uuid.toString().replaceAll(&quot;-&quot;,&quot;&quot;)</code></p><table><thead><tr><th align="center">生成方式</th><th align="center">组合</th><th align="center">优点</th><th align="center">缺点</th></tr></thead><tbody><tr><td align="center">基于时间</td><td align="center">前时间+随机数+mac地址</td><td align="center">mac地址确保唯一性</td><td align="center">暴露mac地址</td></tr><tr><td align="center">DCE安全</td><td align="center">和基于时间的UUID算法相同，但会把<br>时间戳的前4位置换为POSIX的UID或GID</td><td align="center">同上</td><td align="center">同上</td></tr><tr><td align="center">随机</td><td align="center">随机产生，JDK中使用</td><td align="center">重复的可能性可以忽略不计</td><td align="center">无序</td></tr><tr><td align="center">基于名字MD5</td><td align="center">名字+MD5(命名空间)</td><td align="center">有命名空间隔离</td><td align="center">相同命名空间同名的UUID相同</td></tr><tr><td align="center">基于名字SHA</td><td align="center">名字+SHA(命名空间)</td><td align="center">同上</td><td align="center">同上</td></tr></tbody></table><pre><code>DCE:Distributed Computing Environment</code></pre><p>总体优点：</p><pre><code>UUID 生成方便，本地生成没有网络消耗</code></pre><p>总体缺点：</p><pre><code>- 不易于存储：UUID太长，16字节128位，通常以36长度的字符串表示，很多场景不适用。- 信息不安全：基于MAC地址生成UUID的算法可能会造成MAC地址泄露，暴露使用者的位置。- 对MySQL索引不利：如果作为数据库主键，在InnoDB引擎下，UUID的无序性可能会引起数据位置频繁变动，严重影响性能。</code></pre><h2 id="基于数据库实现"><a href="#基于数据库实现" class="headerlink" title="基于数据库实现"></a>基于数据库实现</h2><p>对与分数据库的场景比如4个库，每个库先分配一个起始ID(1..4)，每个库的ID在之前的ID基础上加4(数据库的个数)<br>如下所示：</p><pre><code>DB1: 1，5，9，...DB2: 2, 6, 10, ...DB3: 3, 7, 11, ...DB4: 4, 8, 12, ...</code></pre><p>优点：</p><pre><code>只依赖于数据库本身，ID号单调递增，无重复</code></pre><p>缺点：</p><pre><code>无法扩展</code></pre><h2 id="redis实现"><a href="#redis实现" class="headerlink" title="redis实现"></a>redis实现</h2><p>原理：</p><pre><code>Redis实现分布式唯一ID主要是通过提供像 INCR 和 INCRBY 这样的自增原子命令，由于Redis自身的单线程的特点，所以能保证生成的 ID 肯定是唯一有序的。</code></pre><p>缺点：</p><pre><code>redis 是单线程生成，存在性能瓶颈，依赖于redis，需要系统引进redis组件，增加了系统的配置复杂性</code></pre><h2 id="Snowflake"><a href="#Snowflake" class="headerlink" title="Snowflake"></a>Snowflake</h2><p>Snowflake，Twitter开源的分布式ID生成算法<br>组成如下：</p><table><thead><tr><th align="center">1bit</th><th align="center">41bit</th><th align="center">10bit</th><th align="center">12bit</th></tr></thead><tbody><tr><td align="center">0</td><td align="center">时间戳</td><td align="center">机器数</td><td align="center">自增序列</td></tr><tr><td align="center">符号位不使用</td><td align="center"><code>(1L&lt;&lt;41)/(1000L*360024*365)=69年</code></td><td align="center"><code>2^10=1024</code></td><td align="center"><code>2^12=4096</code></td></tr></tbody></table><p>优点：</p><pre><code>id呈递增趋势，不依赖数据库等第三方系统，以服务的方式部署，稳定性更高，生成ID的性能也是非常高的，而且可以根据自身业务特性分配bit位，非常灵活。</code></pre><p>缺点：</p><pre><code>如果发生时钟回拨，就可能产生重复的ID。</code></pre><h2 id="百度-UidGenerator"><a href="#百度-UidGenerator" class="headerlink" title="百度-UidGenerator"></a>百度-UidGenerator</h2><h3 id="DefaultUidGenerator"><a href="#DefaultUidGenerator" class="headerlink" title="DefaultUidGenerator"></a>DefaultUidGenerator</h3><h3 id="CachedUidGenerator"><a href="#CachedUidGenerator" class="headerlink" title="CachedUidGenerator"></a>CachedUidGenerator</h3><h2 id="美团Leaf"><a href="#美团Leaf" class="headerlink" title="美团Leaf"></a>美团Leaf</h2><h3 id="Leaf-segment"><a href="#Leaf-segment" class="headerlink" title="Leaf-segment"></a>Leaf-segment</h3><h3 id="Leaf-snowflake-方案"><a href="#Leaf-snowflake-方案" class="headerlink" title="Leaf-snowflake 方案"></a>Leaf-snowflake 方案</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> 总结 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 高并发 </tag>
+            
+            <tag> 分布式 </tag>
+            
+            <tag> UUID </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>快手万亿级别Kafka集群应用实践与技术演进之路</title>
       <link href="/2019/06/17/kuai-shou-wan-yi-ji-bie-kafka-ji-qun-ying-yong-shi-jian-yu-ji-zhu-yan-jin-zhi-lu/"/>
       <url>/2019/06/17/kuai-shou-wan-yi-ji-bie-kafka-ji-qun-ying-yong-shi-jian-yu-ji-zhu-yan-jin-zhi-lu/</url>
