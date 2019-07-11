@@ -428,12 +428,12 @@ UUID(Universally Uniq">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="分布式全局ID生成方案"><a href="#分布式全局ID生成方案" class="headerlink" title="分布式全局ID生成方案"></a>分布式全局ID生成方案</h2><blockquote>
-<p>分布式服务架构模式下分库分表的设计，使得多个库或多个表存储相同的业务数据，故而需要生成全局唯一的有序(部分有序)ID来记录数据，保证数据的唯一性。</p>
+<p>分布式服务架构模式下分库分表的设计，使得多个库或多个表存储相同的业务数据，故而需要生成全局唯一的有序(部分有序)<code>ID</code>来记录数据，保证数据的唯一性。</p>
 </blockquote>
 <h2 id="UUID-生成方案一"><a href="#UUID-生成方案一" class="headerlink" title="UUID 生成方案一"></a>UUID 生成方案一</h2><blockquote>
 <ul>
-<li>UUID(Universally Unique Identifier),通用唯一识别码。UUID是由一组32位数的16进制数字所构成，所以UUID理论上的总数为 16^32=2^128，约等于 3.4 x 10^38。也就是说若每纳秒产生1兆个UUID，要花100亿年才会将所有UUID用完。</li>
-<li>生成的UUID是由 8-4-4-4-12 格式的数据组成，其中32个字符和4个连字符’ - ‘，一般我们使用的时候会将连字符删除 uuid.toString().replaceAll(“-“,””)</li>
+<li><code>UUID(Universally Unique Identifier)</code>, 通用唯一识别码。<code>UUID</code> 是由一组32位数的16进制数字所构成，所以UUID理论上的总数为 <code>16^32=2^128</code>，约等于 <code>3.4 x 10^38</code>。也就是说若每纳秒产生1兆个 <code>UUID</code>，要花<code>100亿</code>年才会将所有 <code>UUID</code> 用完。</li>
+<li>生成的 <code>UUID</code> 是由 <code>8-4-4-4-12</code> 格式的数据组成，其中32个字符和4个连字符<code>&#39; - &#39;</code>，一般我们使用的时候会将连字符删除 <code>uuid.toString().replaceAll(&quot;-&quot;,&quot;&quot;)</code></li>
 </ul>
 </blockquote>
 <table>
@@ -477,21 +477,21 @@ UUID(Universally Uniq">
 </tr>
 </tbody></table>
 <blockquote>
-<p>注：DCE:Distributed Computing Environment</p>
+<p>注：<code>DCE:Distributed Computing Environment</code></p>
 </blockquote>
 <p>总体优点</p>
 <blockquote>
-<p>UUID 生成方便，本地生成没有网络消耗</p>
+<p><code>UUID</code> 生成方便，本地生成没有网络消耗</p>
 </blockquote>
 <p>总体缺点</p>
 <blockquote>
 <ul>
-<li>不易于存储：UUID太长，16字节128位，通常以36长度的字符串表示，很多场景不适用。</li>
-<li>信息不安全：基于MAC地址生成UUID的算法可能会造成MAC地址泄露，暴露使用者的位置。</li>
-<li>对MySQL索引不利：如果作为数据库主键，在InnoDB引擎下，UUID的无序性可能会引起数据位置频繁变动，严重影响性能。</li>
+<li>不易于存储：<code>UUID</code> 太长，16字节128位，通常以36长度的字符串表示，很多场景不适用。</li>
+<li>信息不安全：基于 <code>MAC</code> 地址生成 <code>UUID</code> 的算法可能会造成MAC地址泄露，暴露使用者的位置。</li>
+<li>对<code>MySQL</code>索引不利：如果作为数据库主键，在 <code>InnoDB</code> 引擎下，<code>UUID</code>的无序性可能会引起数据位置频繁变动，严重影响性能。</li>
 </ul>
 </blockquote>
-<h2 id="基于数据库实现"><a href="#基于数据库实现" class="headerlink" title="基于数据库实现"></a>基于数据库实现</h2><p>对与分数据库的场景比如4个库，每个库先分配一个起始ID(1..4)，每个库的ID在之前的ID基础上加4(数据库的个数)<br>如下所示</p>
+<h2 id="基于数据库实现"><a href="#基于数据库实现" class="headerlink" title="基于数据库实现"></a>基于数据库实现</h2><p>对与分数据库的场景比如4个库，每个库先分配一个起始<code>ID(1..4)</code>，每个库的ID在之前的ID基础上加4(数据库的个数)<br>如下所示</p>
 <blockquote>
 <ul>
 <li>DB1: 1，5，9，…</li>
@@ -510,13 +510,13 @@ UUID(Universally Uniq">
 </blockquote>
 <h2 id="redis实现"><a href="#redis实现" class="headerlink" title="redis实现"></a>redis实现</h2><p>原理</p>
 <blockquote>
-<p>Redis实现分布式唯一ID主要是通过提供像 INCR 和 INCRBY 这样的自增原子命令，由于Redis自身的单线程的特点，所以能保证生成的 ID 肯定是唯一有序的。</p>
+<p><code>Redis</code>实现分布式唯一ID主要是通过提供像 <code>INCR</code> 和 <code>INCRBY</code> 这样的自增原子命令，由于Redis自身的单线程的特点，所以能保证生成的 ID 肯定是唯一有序的。</p>
 </blockquote>
 <p>缺点</p>
 <blockquote>
-<p>redis 是单线程生成，存在性能瓶颈，依赖于redis，需要系统引进redis组件，增加了系统的配置复杂性</p>
+<p><code>redis</code> 是单线程生成，存在性能瓶颈，依赖于redis，需要系统引进redis组件，增加了系统的配置复杂性</p>
 </blockquote>
-<h2 id="Snowflake"><a href="#Snowflake" class="headerlink" title="Snowflake"></a>Snowflake</h2><p>Snowflake，Twitter开源的分布式ID生成算法<br>组成如下</p>
+<h2 id="Snowflake"><a href="#Snowflake" class="headerlink" title="Snowflake"></a>Snowflake</h2><p><code>Snowflake，Twitter</code>开源的分布式ID生成算法<br>组成如下</p>
 <table>
 <thead>
 <tr>
@@ -547,7 +547,7 @@ UUID(Universally Uniq">
 <blockquote>
 <p>如果发生时钟回拨，就可能产生重复的ID。</p>
 </blockquote>
-<h2 id="百度-UidGenerator"><a href="#百度-UidGenerator" class="headerlink" title="百度-UidGenerator"></a>百度-UidGenerator</h2><h3 id="DefaultUidGenerator"><a href="#DefaultUidGenerator" class="headerlink" title="DefaultUidGenerator"></a>DefaultUidGenerator</h3><h3 id="CachedUidGenerator"><a href="#CachedUidGenerator" class="headerlink" title="CachedUidGenerator"></a>CachedUidGenerator</h3><h2 id="美团Leaf"><a href="#美团Leaf" class="headerlink" title="美团Leaf"></a>美团Leaf</h2><h3 id="Leaf-segment"><a href="#Leaf-segment" class="headerlink" title="Leaf-segment"></a>Leaf-segment</h3><h3 id="Leaf-snowflake-方案"><a href="#Leaf-snowflake-方案" class="headerlink" title="Leaf-snowflake 方案"></a>Leaf-snowflake 方案</h3>
+<h2 id="百度-UidGenerator"><a href="#百度-UidGenerator" class="headerlink" title="百度-UidGenerator"></a>百度-<code>UidGenerator</code></h2><h3 id="DefaultUidGenerator"><a href="#DefaultUidGenerator" class="headerlink" title="DefaultUidGenerator"></a><code>DefaultUidGenerator</code></h3><h3 id="CachedUidGenerator"><a href="#CachedUidGenerator" class="headerlink" title="CachedUidGenerator"></a><code>CachedUidGenerator</code></h3><h2 id="美团-Leaf"><a href="#美团-Leaf" class="headerlink" title="美团-Leaf"></a>美团-<code>Leaf</code></h2><h3 id="Leaf-segment"><a href="#Leaf-segment" class="headerlink" title="Leaf-segment"></a><code>Leaf-segment</code></h3><h3 id="Leaf-snowflake"><a href="#Leaf-snowflake" class="headerlink" title="Leaf-snowflake"></a><code>Leaf-snowflake</code></h3>
             </div>
             <hr>
 
