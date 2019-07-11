@@ -6,7 +6,7 @@
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <meta name="keywords" content="mysql镜像docker-entrypoint.sh解析, Legendary, passion">
     <meta name="description" content="mysql 原始的 Dockerfile 中 ENTRYPOINT 对应的 docker-entrypoint.sh涉及了 Mysql 如何初始化，如何设置密码，如何启动服务等关键问题。
-docker-entrypoint.sh环境变量此处">
+docker-entrypoint.sh环境变量MY">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -424,18 +424,10 @@ docker-entrypoint.sh环境变量此处">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p><code>mysql</code> 原始的 <code>Dockerfile</code> 中 <code>ENTRYPOINT</code> 对应的 <code>docker-entrypoint.sh</code><br>涉及了 <code>Mysql</code> 如何初始化，如何设置密码，如何启动服务等关键问题。</p>
-<h2 id="docker-entrypoint-sh"><a href="#docker-entrypoint-sh" class="headerlink" title="docker-entrypoint.sh"></a>docker-entrypoint.sh</h2><h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><p>此处的环境变量是 <code>docker-entrypoint.sh</code> 中比较重要的一些，我们在启动容器的时候需要配置的</p>
-<h3 id="MYSQL-ROOT-PASSWORD"><a href="#MYSQL-ROOT-PASSWORD" class="headerlink" title="MYSQL_ROOT_PASSWORD"></a><code>MYSQL_ROOT_PASSWORD</code></h3><p><code>root 用户的密码</code></p>
-<h3 id="MYSQL-ALLOW-EMPTY-PASSWORD"><a href="#MYSQL-ALLOW-EMPTY-PASSWORD" class="headerlink" title="MYSQL_ALLOW_EMPTY_PASSWORD"></a><code>MYSQL_ALLOW_EMPTY_PASSWORD</code></h3><p><code>允许root不使用密码</code></p>
-<h3 id="MYSQL-RANDOM-ROOT-PASSWORD"><a href="#MYSQL-RANDOM-ROOT-PASSWORD" class="headerlink" title="MYSQL_RANDOM_ROOT_PASSWORD"></a><code>MYSQL_RANDOM_ROOT_PASSWORD</code></h3><p><code>允许root使用随机密码</code></p>
-<blockquote>
+<h2 id="docker-entrypoint-sh"><a href="#docker-entrypoint-sh" class="headerlink" title="docker-entrypoint.sh"></a>docker-entrypoint.sh</h2><h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><h4 id="MYSQL-ROOT-PASSWORD-root-用户的密码"><a href="#MYSQL-ROOT-PASSWORD-root-用户的密码" class="headerlink" title="MYSQL_ROOT_PASSWORD root 用户的密码"></a><code>MYSQL_ROOT_PASSWORD</code> root 用户的密码</h4><h4 id="MYSQL-ALLOW-EMPTY-PASSWORD-允许root不使用密码"><a href="#MYSQL-ALLOW-EMPTY-PASSWORD-允许root不使用密码" class="headerlink" title="MYSQL_ALLOW_EMPTY_PASSWORD 允许root不使用密码"></a><code>MYSQL_ALLOW_EMPTY_PASSWORD</code> 允许root不使用密码</h4><h4 id="MYSQL-RANDOM-ROOT-PASSWORD-允许root使用随机密码"><a href="#MYSQL-RANDOM-ROOT-PASSWORD-允许root使用随机密码" class="headerlink" title="MYSQL_RANDOM_ROOT_PASSWORD 允许root使用随机密码"></a><code>MYSQL_RANDOM_ROOT_PASSWORD</code> 允许root使用随机密码</h4><blockquote>
 <p><strong>以上的三个环境变量必须指定其中一个</strong></p>
 </blockquote>
-<h3 id="MYSQL-ONETIME-PASSWORD"><a href="#MYSQL-ONETIME-PASSWORD" class="headerlink" title="MYSQL_ONETIME_PASSWORD"></a><code>MYSQL_ONETIME_PASSWORD</code></h3><pre><code>当变量为true（这是默认状态，除非设置了 `MYSQL_ROOT_PASSWORD` 或 `MYSQL_ALLOW_EMPTY_PASSWORD` 设置为 true）时，root用户的密码设置为expired，必须先更改才能正常使用MySQL。</code></pre><h3 id="MYSQL-INITDB-SKIP-TZINFO"><a href="#MYSQL-INITDB-SKIP-TZINFO" class="headerlink" title="MYSQL_INITDB_SKIP_TZINFO"></a><code>MYSQL_INITDB_SKIP_TZINFO</code></h3><p><code>不导入时区信息到MYSQL中，默认不使用该参数进行导入时区</code></p>
-<h3 id="MYSQL-DATABASE"><a href="#MYSQL-DATABASE" class="headerlink" title="MYSQL_DATABASE"></a><code>MYSQL_DATABASE</code></h3><p><code>默认创建一个数据库</code></p>
-<h3 id="MYSQL-USER"><a href="#MYSQL-USER" class="headerlink" title="MYSQL_USER"></a><code>MYSQL_USER</code></h3><p><code>新建一个用户</code></p>
-<h3 id="MYSQL-PASSWORD"><a href="#MYSQL-PASSWORD" class="headerlink" title="MYSQL_PASSWORD"></a><code>MYSQL_PASSWORD</code></h3><p><code>新建用户的密码</code></p>
-<h2 id="docker-entrypoint-initdb-d-目录"><a href="#docker-entrypoint-initdb-d-目录" class="headerlink" title="/docker-entrypoint-initdb.d 目录"></a>/docker-entrypoint-initdb.d 目录</h2><p>在 <code>docker-entrypoint.sh</code> 中有一段</p>
+<h4 id="MYSQL-ONETIME-PASSWORD"><a href="#MYSQL-ONETIME-PASSWORD" class="headerlink" title="MYSQL_ONETIME_PASSWORD"></a><code>MYSQL_ONETIME_PASSWORD</code></h4><pre><code>当变量为true（这是默认状态，除非设置了 `MYSQL_ROOT_PASSWORD` 或 `MYSQL_ALLOW_EMPTY_PASSWORD` 设置为 true）时，root用户的密码设置为expired，必须先更改才能正常使用MySQL。</code></pre><h4 id="MYSQL-INITDB-SKIP-TZINFO不导入时区信息到MYSQL中，默认不使用该参数进行导入时区"><a href="#MYSQL-INITDB-SKIP-TZINFO不导入时区信息到MYSQL中，默认不使用该参数进行导入时区" class="headerlink" title="MYSQL_INITDB_SKIP_TZINFO不导入时区信息到MYSQL中，默认不使用该参数进行导入时区"></a><code>MYSQL_INITDB_SKIP_TZINFO</code>不导入时区信息到MYSQL中，默认不使用该参数进行导入时区</h4><h4 id="MYSQL-DATABASE-默认创建一个数据库"><a href="#MYSQL-DATABASE-默认创建一个数据库" class="headerlink" title="MYSQL_DATABASE    默认创建一个数据库"></a><code>MYSQL_DATABASE</code>    默认创建一个数据库</h4><h4 id="MYSQL-USER-新建一个用户"><a href="#MYSQL-USER-新建一个用户" class="headerlink" title="MYSQL_USER    新建一个用户"></a><code>MYSQL_USER</code>    新建一个用户</h4><h4 id="MYSQL-PASSWORD-新建用户的密码"><a href="#MYSQL-PASSWORD-新建用户的密码" class="headerlink" title="MYSQL_PASSWORD    新建用户的密码"></a><code>MYSQL_PASSWORD</code>    新建用户的密码</h4><h2 id="docker-entrypoint-initdb-d-目录"><a href="#docker-entrypoint-initdb-d-目录" class="headerlink" title="/docker-entrypoint-initdb.d 目录"></a>/docker-entrypoint-initdb.d 目录</h2><p>在 <code>docker-entrypoint.sh</code> 中有一段</p>
 <pre><code>process_init_file() {
     local f=&quot;$1&quot;; shift
     local mysql=( &quot;$@&quot; )
@@ -692,7 +684,7 @@ $@=mysqld -f xxx.conf</code></pre><h3 id="exec-quot-quot"><a href="#exec-quot-qu
                     <div class="summary block-with-text">
                         
                             mysql 原始的 Dockerfile 中 ENTRYPOINT 对应的 docker-entrypoint.sh涉及了 Mysql 如何初始化，如何设置密码，如何启动服务等关键问题。
-docker-entrypoint.sh环境变量此处
+docker-entrypoint.sh环境变量MY
                         
                     </div>
                     <div class="publish-info">
