@@ -424,6 +424,8 @@
             <div id="articleContent">
                 <p>容器化的部署已经是现在企业的家常便饭，<code>Mysql image</code> 的使用也是司空见惯，为了更高效的部署有必要了解一下关于 <code>mysql</code> 镜像的 <code>docker-entrypoint</code> 的那些事儿。<code>mysql</code> 原始的 <code>Dockerfile</code> 中 <code>ENTRYPOINT</code> 对应的 <code>docker-entrypoint.sh</code>涉及了 <code>Mysql</code> 如何初始化，如何设置密码，如何启动服务等关键问题。</p>
 <h2 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a><code>Dockerfile</code></h2><pre><code>...
+RUN mkdir /docker-entrypoint-initdb.d
+...
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
 ENTRYPOINT [&quot;docker-entrypoint.sh&quot;]
