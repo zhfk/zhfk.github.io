@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhfk.github.io/"/>
-  <updated>2019-07-11T16:27:50.173Z</updated>
+  <updated>2019-07-11T17:24:28.673Z</updated>
   <id>https://zhfk.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>mysql镜像docker-entrypoint.sh解析</title>
+    <title>mysql镜像的docker-entrypoint</title>
     <link href="https://zhfk.github.io/2019/07/12/mysql-jing-xiang-docker-entrypoint.sh-jie-xi/"/>
     <id>https://zhfk.github.io/2019/07/12/mysql-jing-xiang-docker-entrypoint.sh-jie-xi/</id>
     <published>2019-07-11T16:15:52.940Z</published>
-    <updated>2019-07-11T16:27:50.173Z</updated>
+    <updated>2019-07-11T17:24:28.673Z</updated>
     
     <summary type="html">
     
@@ -29,7 +29,7 @@
       
         
         
-          &lt;p&gt;&lt;code&gt;mysql&lt;/code&gt; 原始的 &lt;code&gt;Dockerfile&lt;/code&gt; 中 &lt;code&gt;ENTRYPOINT&lt;/code&gt; 对应的 &lt;code&gt;docker-entrypoint.sh&lt;/code&gt;&lt;br&gt;涉及了 &lt;code&gt;Mysql&lt;/code&gt;
+          &lt;p&gt;容器化的部署已经是现在企业的家常便饭，&lt;code&gt;Mysql image&lt;/code&gt; 的使用也是司空见惯，为了更高效的部署有必要了解一下关于 &lt;code&gt;mysql&lt;/code&gt; 镜像的 &lt;code&gt;docker-entrypoint&lt;/code&gt;
         
       
     
@@ -51,7 +51,7 @@
     <link href="https://zhfk.github.io/2019/07/10/fen-bu-shi-quan-ju-id-sheng-cheng-fang-an/"/>
     <id>https://zhfk.github.io/2019/07/10/fen-bu-shi-quan-ju-id-sheng-cheng-fang-an/</id>
     <published>2019-07-10T15:58:29.714Z</published>
-    <updated>2019-07-11T16:37:00.153Z</updated>
+    <updated>2019-07-11T16:37:48.804Z</updated>
     
     <summary type="html">
     
