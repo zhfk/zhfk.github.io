@@ -439,7 +439,9 @@ docker-entrypoint.sh环境变量MY">
 <h4 id="MYSQL-ONETIME-PASSWORD"><a href="#MYSQL-ONETIME-PASSWORD" class="headerlink" title="MYSQL_ONETIME_PASSWORD"></a><code>MYSQL_ONETIME_PASSWORD</code></h4><blockquote>
 <p>当变量为true（这是默认状态，除非设置了 <code>MYSQL_ROOT_PASSWORD</code> 或 <code>MYSQL_ALLOW_EMPTY_PASSWORD</code> 设置为 true）时，root用户的密码设置为expired，必须先更改才能正常使用MySQL。</p>
 </blockquote>
-<h4 id="MYSQL-INITDB-SKIP-TZINFO"><a href="#MYSQL-INITDB-SKIP-TZINFO" class="headerlink" title="MYSQL_INITDB_SKIP_TZINFO"></a><code>MYSQL_INITDB_SKIP_TZINFO</code></h4><p>不导入时区信息到MYSQL中，默认不使用该参数进行导入时区</p>
+<h4 id="MYSQL-INITDB-SKIP-TZINFO"><a href="#MYSQL-INITDB-SKIP-TZINFO" class="headerlink" title="MYSQL_INITDB_SKIP_TZINFO"></a><code>MYSQL_INITDB_SKIP_TZINFO</code></h4><blockquote>
+<p>不导入时区信息到MYSQL中，默认不使用该参数进行导入时区</p>
+</blockquote>
 <h4 id="MYSQL-DATABASE"><a href="#MYSQL-DATABASE" class="headerlink" title="MYSQL_DATABASE"></a><code>MYSQL_DATABASE</code></h4><blockquote>
 <p>默认创建一个数据库</p>
 </blockquote>
@@ -462,13 +464,34 @@ docker-entrypoint.sh环境变量MY">
     esac
     echo
 }</code></pre><p>该目录下的文件会被执行，如果你有一些DDL或脚本需要执行，复制到此目录下即可，但是多个文件不保证执行顺序，需要自行控制。</p>
-<h2 id="一些用法解析"><a href="#一些用法解析" class="headerlink" title="一些用法解析"></a>一些用法解析</h2><h3 id="set-e-或-set-o-errexit"><a href="#set-e-或-set-o-errexit" class="headerlink" title="set -e 或 set -o errexit"></a><code>set -e 或 set -o errexit</code></h3><pre><code>任何语句的执行结果不是true则应该退出</code></pre><h3 id="set-o-pipefail"><a href="#set-o-pipefail" class="headerlink" title="set -o pipefail"></a><code>set -o pipefail</code></h3><pre><code>执行错误之后立即退出, -o pipefail 的作用域是管道, 也就是说在 Linux 脚本中的管道</code></pre><h3 id="shopt-s-nullglob"><a href="#shopt-s-nullglob" class="headerlink" title="shopt -s nullglob"></a><code>shopt -s nullglob</code></h3><pre><code>使用 Linux 中的通配符时 * ?等 如果没有匹配到任何文件, 不会报 No such file or directory 而是将命令后面的参数去掉执行</code></pre><h3 id="if-quot-1-0-1-quot-39-39-then"><a href="#if-quot-1-0-1-quot-39-39-then" class="headerlink" title="if [ &quot;${1:0:1}&quot; = &#39;-&#39; ]; then..."></a><code>if [ &quot;${1:0:1}&quot; = &#39;-&#39; ]; then...</code></h3><pre><code>${1:0:1} 是判断 $1(调用该脚本的第一个参数), 偏移量0(不偏移), 取一个字符(取字符串的长度),如果判断出来调用这个脚本后面所跟的参数第一个字符是-中横线的话, 就认为后面的所有字符串都是 mysqld 的启动参数</code></pre><h3 id="set-mysqld-quot-quot"><a href="#set-mysqld-quot-quot" class="headerlink" title="set -- mysqld &quot;$@&quot;"></a><code>set -- mysqld &quot;$@&quot;</code></h3><pre><code>set --会将他后面所有以空格区分的字符串, 按顺序分别存储到$1, $2, $3 变量中, 其中新的$@为set --后面的全部内容</code></pre><p>例如：<code>bash docker-entrypoint.sh -f xxx.conf</code></p>
+<h2 id="一些用法解析"><a href="#一些用法解析" class="headerlink" title="一些用法解析"></a>一些用法解析</h2><h3 id="set-e-或-set-o-errexit"><a href="#set-e-或-set-o-errexit" class="headerlink" title="set -e 或 set -o errexit"></a><code>set -e 或 set -o errexit</code></h3><blockquote>
+<p>任何语句的执行结果不是true则应该退出</p>
+</blockquote>
+<h3 id="set-o-pipefail"><a href="#set-o-pipefail" class="headerlink" title="set -o pipefail"></a><code>set -o pipefail</code></h3><blockquote>
+<p>执行错误之后立即退出, -o pipefail 的作用域是管道, 也就是说在 Linux 脚本中的管道</p>
+</blockquote>
+<h3 id="shopt-s-nullglob"><a href="#shopt-s-nullglob" class="headerlink" title="shopt -s nullglob"></a><code>shopt -s nullglob</code></h3><blockquote>
+<p>使用 Linux 中的通配符时 * ?等 如果没有匹配到任何文件, 不会报 No such file or directory 而是将命令后面的参数去掉执行</p>
+</blockquote>
+<h3 id="if-quot-1-0-1-quot-39-39-then"><a href="#if-quot-1-0-1-quot-39-39-then" class="headerlink" title="if [ &quot;${1:0:1}&quot; = &#39;-&#39; ]; then..."></a><code>if [ &quot;${1:0:1}&quot; = &#39;-&#39; ]; then...</code></h3><blockquote>
+<p>${1:0:1} 是判断 $1(调用该脚本的第一个参数), 偏移量0(不偏移), 取一个字符(取字符串的长度),如果判断出来调用这个脚本后面所跟的参数第一个字符是-中横线的话, 就认为后面的所有字符串都是 mysqld 的启动参数</p>
+</blockquote>
+<h3 id="set-mysqld-quot-quot"><a href="#set-mysqld-quot-quot" class="headerlink" title="set -- mysqld &quot;$@&quot;"></a><code>set -- mysqld &quot;$@&quot;</code></h3><blockquote>
+<p>set –会将他后面所有以空格区分的字符串, 按顺序分别存储到$1, $2, $3 变量中, 其中新的$@为set –后面的全部内容</p>
+</blockquote>
+<p>例如：<code>bash docker-entrypoint.sh -f xxx.conf</code></p>
 <p>在这种情况下, <code>set -- mysqld &quot;$@&quot;</code> 中的 <code>$@</code> 的值为 <code>-f xxx.conf</code></p>
 <p>当执行完 <code>set -- mysqld &quot;$@&quot;</code> 这条命令后:</p>
 <pre><code>$1=mysqld
 $2=-f
 $3=xxx.conf
-$@=mysqld -f xxx.conf</code></pre><h3 id="exec-quot-quot"><a href="#exec-quot-quot" class="headerlink" title="exec &quot;$@&quot;"></a><code>exec &quot;$@&quot;</code></h3><pre><code>这个命令的意义在于你已经为你的镜像预想到了应该有的调用情况, 当实际使用镜像的人执行了你没有预料到的可执行命令时, 将会走到脚本的这最后一行, 去执行用户新的可执行命令</code></pre><h3 id="exec-gosu-mysql-quot-BASH-SOURCE-quot-quot-quot"><a href="#exec-gosu-mysql-quot-BASH-SOURCE-quot-quot-quot" class="headerlink" title="exec gosu mysql &quot;$BASH_SOURCE&quot; &quot;$@&quot;"></a><code>exec gosu mysql &quot;$BASH_SOURCE&quot; &quot;$@&quot;</code></h3><pre><code>这里的 gosu 命令, 是 Linux 中 sudo 命令的轻量级”替代品”,用来取代 shell 中的 sudo 命令. su 和 sudo 命令有一些缺陷, 主要是会引起不确定的 TTY, 对信号量的转发也存在问题。</code></pre><h2 id="其他详细信息请移步"><a href="#其他详细信息请移步" class="headerlink" title="其他详细信息请移步"></a>其他详细信息请移步</h2><p><a href="https://github.com/docker-library/mysql/blob/223f0be1213bbd8647b841243a3114e8b34022f4/8.0/docker-entrypoint.sh" target="_blank" rel="noopener">docker-entrypoint.sh</a></p>
+$@=mysqld -f xxx.conf</code></pre><h3 id="exec-quot-quot"><a href="#exec-quot-quot" class="headerlink" title="exec &quot;$@&quot;"></a><code>exec &quot;$@&quot;</code></h3><blockquote>
+<p>这个命令的意义在于你已经为你的镜像预想到了应该有的调用情况, 当实际使用镜像的人执行了你没有预料到的可执行命令时, 将会走到脚本的这最后一行, 去执行用户新的可执行命令</p>
+</blockquote>
+<h3 id="exec-gosu-mysql-quot-BASH-SOURCE-quot-quot-quot"><a href="#exec-gosu-mysql-quot-BASH-SOURCE-quot-quot-quot" class="headerlink" title="exec gosu mysql &quot;$BASH_SOURCE&quot; &quot;$@&quot;"></a><code>exec gosu mysql &quot;$BASH_SOURCE&quot; &quot;$@&quot;</code></h3><blockquote>
+<p>这里的 gosu 命令, 是 Linux 中 sudo 命令的轻量级”替代品”,用来取代 shell 中的 sudo 命令. su 和 sudo 命令有一些缺陷, 主要是会引起不确定的 TTY, 对信号量的转发也存在问题。</p>
+</blockquote>
+<h2 id="其他详细信息请移步"><a href="#其他详细信息请移步" class="headerlink" title="其他详细信息请移步"></a>其他详细信息请移步</h2><p><a href="https://github.com/docker-library/mysql/blob/223f0be1213bbd8647b841243a3114e8b34022f4/8.0/docker-entrypoint.sh" target="_blank" rel="noopener">docker-entrypoint.sh</a></p>
 <p><a href="https://www.docs4dev.com/docs/zh/mysql/5.7/reference/docker-mysql-more-topics.html#%E6%9C%89%E5%85%B3%E4%BD%BF%E7%94%A8docker%E9%83%A8%E7%BD%B2mysql%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E6%9B%B4%E5%A4%9A%E4%B8%BB%E9%A2%98" target="_blank" rel="noopener">有关使用Docker部署MySQL服务器的更多主题</a></p>
 
             </div>
